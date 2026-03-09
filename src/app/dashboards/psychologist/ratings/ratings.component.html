@@ -1,0 +1,21 @@
+<div class="ratings">
+  <div class="ratings-card">
+    <h6 class="ratings-title">Client Reviews</h6>
+    @for (review of reviews; track review.clientName; let last = $last) {
+      <div class="ratings-item">
+        <div class="ratings-row">
+          <div class="ratings-stars">
+            @for (s of stars(review.rating); track $index) {
+              <span class="star" [class.full]="s === 'full'" [class.half]="s === 'half'">&#9733;</span>
+            }
+          </div>
+          <span class="ratings-name">{{ review.clientName }}</span>
+        </div>
+        <p class="ratings-date">{{ formatDate(review.reviewDate) }}</p>
+      </div>
+      @if (!last) {
+        <hr class="ratings-divider" />
+      }
+    }
+  </div>
+</div>

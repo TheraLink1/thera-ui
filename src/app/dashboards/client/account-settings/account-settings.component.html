@@ -1,0 +1,24 @@
+<div class="settings">
+  <div class="settings-card">
+    <h5 class="settings-title">Account Settings</h5>
+    <p class="settings-sub">Keeping your account information up to date helps us serve you better.</p>
+
+    <div class="settings-field">
+      <label class="settings-label">Name</label>
+      <input class="settings-input" type="text" [(ngModel)]="name" name="name" />
+    </div>
+
+    <div class="settings-field">
+      <label class="settings-label">Email</label>
+      <input class="settings-input" type="email" [(ngModel)]="email" name="email" />
+    </div>
+
+    @if (message) {
+      <p class="settings-msg" [class.error]="messageType === 'error'">{{ message }}</p>
+    }
+
+    <button class="settings-btn" (click)="save()" [disabled]="saving || !name || !email">
+      {{ saving ? 'Saving...' : 'Save Changes' }}
+    </button>
+  </div>
+</div>

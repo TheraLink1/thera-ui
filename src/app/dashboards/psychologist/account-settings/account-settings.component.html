@@ -1,0 +1,41 @@
+<div class="settings">
+  <div class="settings-card">
+    <h5 class="settings-title">Account Settings</h5>
+    <div class="settings-field">
+      <label class="settings-label">Full Name</label>
+      <input class="settings-input" type="text" [(ngModel)]="form.name" name="name" />
+    </div>
+    <div class="settings-field">
+      <label class="settings-label">Specialization</label>
+      <input class="settings-input" type="text" [(ngModel)]="form.Specialization" name="spec" />
+    </div>
+    <div class="settings-field">
+      <label class="settings-label">Location</label>
+      <input class="settings-input" type="text" [(ngModel)]="form.location" name="location" />
+    </div>
+    <div class="settings-field">
+      <label class="settings-label">Hourly Rate (PLN)</label>
+      <input class="settings-input input-sm" type="number" [(ngModel)]="form.hourlyRate" name="rate" />
+    </div>
+    <div class="settings-field">
+      <label class="settings-label">Rating</label>
+      <div class="settings-stars">
+        @for (s of ratingStars; track $index) {
+          <span class="star" [class.filled]="s === 'full'">&#9733;</span>
+        }
+      </div>
+    </div>
+    <div class="settings-field">
+      <label class="settings-label">Description</label>
+      <textarea class="settings-textarea" [(ngModel)]="form.Description" name="desc" rows="4"></textarea>
+    </div>
+    @if (message) {
+      <p [class]="messageType === 'success' ? 'msg-success' : 'msg-error'">{{ message }}</p>
+    }
+    <div class="settings-actions">
+      <button class="settings-btn" (click)="save()" [disabled]="saving">
+        {{ saving ? 'Saving...' : 'Save Changes' }}
+      </button>
+    </div>
+  </div>
+</div>

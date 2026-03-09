@@ -1,0 +1,206 @@
+.billings {
+  padding: 1rem;
+}
+
+.billings-title {
+  color: #2b6369;
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.billings-sub-title {
+  color: #2b6369;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.billings-update-wrap {
+  text-align: right;
+  margin: 1rem 0 2rem;
+}
+
+.btn-primary {
+  padding: 8px 16px;
+  background-color: #2b6369;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #224f54;
+  }
+}
+
+.btn-outline {
+  padding: 8px 16px;
+  background: white;
+  color: #2b6369;
+  border: 1px solid #2b6369;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(43, 99, 105, 0.08);
+  }
+}
+
+.btn-sm {
+  padding: 5px 12px;
+  font-size: 0.8rem;
+}
+
+.atm-card {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1.586;
+  background: linear-gradient(135deg, #2b6369 0%, #1f4f52 100%);
+  border-radius: 16px;
+  color: white;
+  padding: 24px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.atm-chip {
+  width: 40px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 4px;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+.atm-number {
+  letter-spacing: 2px;
+  margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.atm-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.atm-caption {
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.atm-value {
+  font-size: 0.85rem;
+}
+
+.atm-brand {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.payments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pay-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #2b6369;
+  border-radius: 8px;
+  background: white;
+}
+
+.pay-date {
+  flex: 1;
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.pay-amount {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.pay-status {
+  width: 80px;
+  text-align: center;
+  padding: 2px 0;
+  border: 1px solid;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.dialog {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-width: 320px;
+  max-width: 90vw;
+}
+
+.dialog-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2b6369;
+  margin-bottom: 1rem;
+}
+
+.dialog-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #555;
+  }
+}
+
+.dialog-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  outline: none;
+
+  &:focus {
+    border-color: #1f4f52;
+  }
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}

@@ -1,0 +1,31 @@
+<div class="appts">
+  <h4 class="appts-title">Upcoming Appointments</h4>
+
+  @if (loading) {
+    <p>Loading appointments...</p>
+  } @else if (error) {
+    <p>Error loading appointments.</p>
+  } @else if (appointments.length === 0) {
+    <p>No upcoming appointments.</p>
+  } @else {
+    @for (appt of appointments; track appt.id) {
+      <div class="appt-card">
+        <div class="appt-date">{{ formatDate(appt.scheduledAt ?? appt.date ?? '') }}</div>
+        <hr class="appt-divider" />
+        <p><strong>Client:</strong> {{ appt.client?.name ?? 'Brak danych' }}</p>
+        <p><a class="appt-link" href="mailto:{{ appt.client?.email }}">{{ appt.client?.email ?? '-' }}</a></p>
+        @if (appt.meetingLink) {
+          <p><strong>Meeting Link:</strong> <a [href]="appt.meetingLink" target="_blank">{{ appt.meetingLink }}</a></p>
+        }
+        <p><strong>Status:</strong> <span class="appt-chip">{{ appt.status }}</span></p>
+        @if (appt.payment) {
+          <p>{{ appt.payment.isPaid ? 'Paid' : 'Unpaid' }} – {{ appt.payment.amount }} zł</p>
+        }
+        <div class="appt-actions">
+          <button class="appt-btn danger" [disabled]="!canModify(appt)">Cancel Appointment</button>
+          <button class="appt-btn" [disabled]="appt.status !== 'PENDING' && appt.status !== 'APPROVED'">Reschedule</button>
+        </div>
+      </div>
+    }
+  }
+</div>

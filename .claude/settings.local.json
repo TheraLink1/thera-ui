@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/desirecutieqb/IdeaProjects/TheraLink -maxdepth 3 -type f -name \"*.tsx\" 2>/dev/null | head -30)",
+      "Bash(find /Users/desirecutieqb/IdeaProjects/TheraLink -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" -o -name \"*.scss\" -o -name \"*.css\" \\\\\\) 2>/dev/null | grep -v node_modules | head -60)",
+      "Bash(pnpm add @ngxs/store @ngxs/router-plugin @ngxs/logger-plugin 2>&1 | tail -10)",
+      "Bash(pnpm add keycloak-angular keycloak-js 2>&1 | tail -10)",
+      "Bash(cat > /Users/desirecutieqb/IdeaProjects/thera-ui/src/app/app.html << 'HTMLEOF'\n<app-navbar />\n<router-outlet />\n<app-footer />\nHTMLEOF)",
+      "WebFetch(domain:github.com)",
+      "Bash(grep -r \"provideKeycloak\\\\|bearerExcludedUrls\\\\|withCredentials\" /Users/desirecutieqb/IdeaProjects/thera-ui/node_modules/keycloak-angular/lib/ --include=\"*.d.ts\" -l 2>/dev/null | head -5)",
+      "Bash(find /Users/desirecutieqb/IdeaProjects/thera-ui/node_modules/keycloak-angular -name \"*.d.ts\" | head -10 && grep -r \"provideKeycloak\" /Users/desirecutieqb/IdeaProjects/thera-ui/node_modules/keycloak-angular --include=\"*.d.ts\" 2>/dev/null | head -5)",
+      "Bash(grep -r \"TranslocoHttpLoader\\\\|HttpLoader\" /Users/desirecutieqb/IdeaProjects/thera-ui/node_modules/@jsverse/transloco/lib/ --include=\"*.d.ts\" 2>/dev/null | head -5)",
+      "Bash(pnpm run build 2>&1 | grep -E \"^\\(error|Error|✗|Application bundle\\)\" | tail -10)",
+      "Bash(pnpm run build 2>&1 | grep -E \"error|Error|Application bundle\" | tail -5)"
+    ]
+  }
+}

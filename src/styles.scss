@@ -1,0 +1,63 @@
+@use '@angular/material' as mat;
+
+$primary: #2b6369;
+$nav-bg: #256269;
+$accent: #00bfa5;
+$accent-hover: #009e8f;
+$primary-hover: #224f54;
+$input-focus: #1f4f52;
+$nav-tagline: #cde8e5;
+$bg-hero: #2b6369;
+$bg-map: #e0f7fa;
+$bg-stats: #f0fdfc;
+$bg-tiles: #f4f4f4;
+$bg-cards: #f9f9f9;
+$bg-faq: #f0f0f0;
+$cta-text: #004d40;
+$stats-value: #00796b;
+$card-gradient-to: #1f4f52;
+$border-faq: #d9d9d9;
+$status-warning: #ff9800;
+$shadow-nav: rgba(0, 0, 0, 0.2);
+
+$text-primary: #2b6369;
+$text-muted: #555;
+$text-dark: #333;
+$cta-dark: #004d40;
+
+$theralink-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+  ),
+  typography: (
+    brand-family: 'Arial, sans-serif',
+  ),
+));
+
+html {
+  @include mat.all-component-themes($theralink-theme);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: $text-dark;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}

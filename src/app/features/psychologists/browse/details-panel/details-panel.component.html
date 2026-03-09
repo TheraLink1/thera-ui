@@ -1,0 +1,63 @@
+<div class="panel" [@slideIn]>
+  @if (loading) {
+    <p class="panel-loading">Ładowanie dostępności...</p>
+  } @else {
+    <h5 class="panel-name">{{ psychologist.name }}</h5>
+    <p class="panel-spec">{{ psychologist.Specialization }}</p>
+    <p class="panel-info"><strong>Adres:</strong> {{ psychologist.location }}</p>
+    <p class="panel-info"><strong>Stawka:</strong> {{ psychologist.hourlyRate }} zł</p>
+
+    <div class="panel-stars">
+      <strong>Ocena:</strong>
+      @for (s of stars; track $index) {
+        @if (s === 'full') { <span class="star star-full">&#9733;</span> }
+        @else if (s === 'half') { <span class="star star-half">&#9734;</span> }
+        @else { <span class="star star-empty">&#9734;</span> }
+      }
+    </div>
+
+    @if (psychologist.Description) {
+      <p class="panel-desc">{{ psychologist.Description }}</p>
+    }
+
+    <div class="panel-calendar">
+      <h3 class="panel-section-title">Wybierz datę wizyty:</h3>
+      <mat-calendar
+        [selected]="selectedDate"
+        [dateFilter]="isDateAvailable"
+        (selectedChange)="onDateChange($event)"
+        class="panel-mat-calendar"
+      ></mat-calendar>
+
+      @if (selectedDate) {
+        <h4 class="panel-section-title">Dostępne godziny:</h4>
+        <div class="time-slots">
+          @for (t of availableTimes; track t) {
+            <button
+              class="time-btn"
+              [class.selected]="t === selectedTime"
+              (click)="selectTime(t)"
+            >{{ t }}</button>
+          }
+          @if (availableTimes.length === 0) {
+            <p>Brak dostępnych godzin na ten dzień.</p>
+          }
+        </div>
+        <p class="panel-hint">Wszystkie spotkania trwają 60 minut.</p>
+      }
+    </div>
+
+    <a
+      [routerLink]="['/booking/confirm']"
+      [queryParams]="{ psychologistId: psychologist.cognitoId, date: formattedDate, time: selectedTime }"
+      class="confirm-btn"
+      [class.disabled]="!selectedDate || !selectedTime"
+    >
+      @if (selectedDate && selectedTime) {
+        Umów spotkanie na {{ formattedDate }} o {{ selectedTime }}
+      } @else {
+        Wybierz datę i godzinę
+      }
+    </a>
+  }
+</div>

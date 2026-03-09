@@ -1,0 +1,148 @@
+.avail {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-top: 40px;
+  background: #f9f9f9;
+}
+
+.avail-card {
+  width: 100%;
+  max-width: 1000px;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.avail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.avail-title {
+  color: #2b6369;
+  font-size: 1.3rem;
+}
+
+.avail-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 1rem;
+
+  &:hover:not(:disabled) {
+    background: #f0f0f0;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.avail-table-wrap {
+  overflow-x: auto;
+}
+
+.avail-table {
+  border-collapse: separate;
+  border-spacing: 8px 0;
+  width: 100%;
+}
+
+.avail-th {
+  text-align: center;
+  color: #2b6369;
+  font-weight: bold;
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.85rem;
+}
+
+.th-time {
+  width: 70px;
+}
+
+.avail-td-label {
+  text-align: center;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.75rem;
+  border-right: 1px solid #e0e0e0;
+  padding: 0 4px;
+}
+
+.avail-slot {
+  height: 20px;
+  min-width: 80px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(.past) {
+    background-color: #d5d5d5;
+  }
+
+  &.selected {
+    background-color: #2b6369;
+
+    &:hover {
+      background-color: #224f54;
+    }
+  }
+
+  &.past {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.avail-save-btn {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 12px;
+  background-color: #2b6369;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: #224f54;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.avail-msg {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+
+  &.success {
+    color: green;
+  }
+
+  &.error {
+    color: red;
+  }
+}

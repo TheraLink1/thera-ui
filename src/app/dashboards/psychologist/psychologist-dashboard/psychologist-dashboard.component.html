@@ -1,0 +1,27 @@
+<div class="dashboard">
+  <aside class="dashboard-sidebar">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <a routerLink="account-settings" routerLinkActive="active" class="sidebar-link">{{ 'psychologistDashboard.accountSettings' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="set-availability" routerLinkActive="active" class="sidebar-link">{{ 'psychologistDashboard.setAvailability' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="appointments" routerLinkActive="active" class="sidebar-link">{{ 'psychologistDashboard.appointments' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="billings" routerLinkActive="active" class="sidebar-link">{{ 'psychologistDashboard.billings' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="calendar" routerLinkActive="active" class="sidebar-link">{{ 'psychologistDashboard.calendar' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="ratings" routerLinkActive="active" class="sidebar-link">{{ 'psychologistDashboard.ratings' | transloco }}</a>
+      </li>
+    </ul>
+  </aside>
+  <main class="dashboard-main">
+    <router-outlet />
+  </main>
+</div>

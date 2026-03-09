@@ -1,0 +1,50 @@
+<div class="avail">
+  <div class="avail-card">
+    <div class="avail-header">
+      <h5 class="avail-title">Set Weekly Availability</h5>
+      <div class="avail-nav">
+        <button class="nav-btn" (click)="prevWeek()" [disabled]="isPast(weekDates[0])">&#8592;</button>
+        <button class="nav-btn" (click)="nextWeek()">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="avail-table-wrap">
+      <table class="avail-table">
+        <thead>
+          <tr>
+            <th class="avail-th th-time"></th>
+            @for (d of weekDates; track dateKey(d)) {
+              <th class="avail-th">{{ dayLabel(d) }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (time of timeSlots; track time) {
+            <tr>
+              <td class="avail-td-label">{{ time }}</td>
+              @for (d of weekDates; track dateKey(d)) {
+                <td
+                  class="avail-slot"
+                  [class.selected]="isSelected(dateKey(d), time)"
+                  [class.past]="isPast(d)"
+                  (click)="!isPast(d) && toggle(dateKey(d), time)"
+                ></td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <button class="avail-save-btn" (click)="save()" [disabled]="saving">
+      {{ saving ? 'Saving...' : 'Save Availability' }}
+    </button>
+
+    @if (saveSuccess) {
+      <p class="avail-msg success">Availability saved successfully.</p>
+    }
+    @if (saveError) {
+      <p class="avail-msg error">Error saving availability. Please try again.</p>
+    }
+  </div>
+</div>

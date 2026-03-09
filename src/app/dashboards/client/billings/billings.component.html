@@ -1,0 +1,59 @@
+<div class="billings">
+  <h4 class="billings-title">Billings</h4>
+
+  <div class="atm-card">
+    <div class="atm-chip"></div>
+    <p class="atm-number">****  ****  ****  {{ cardInfo.last4 }}</p>
+    <div class="atm-bottom">
+      <div>
+        <span class="atm-caption">CARDHOLDER</span>
+        <p class="atm-value">{{ cardInfo.cardholder.toUpperCase() }}</p>
+      </div>
+      <div>
+        <span class="atm-caption">EXPIRES</span>
+        <p class="atm-value">{{ cardInfo.expiry }}</p>
+      </div>
+    </div>
+    <span class="atm-brand">{{ cardInfo.brand }}</span>
+  </div>
+
+  <div class="billings-update-wrap">
+    <button class="btn-outline" (click)="openDialog()">Update Card</button>
+  </div>
+
+  @if (dialogOpen) {
+    <div class="dialog-overlay" (click)="dialogOpen = false">
+      <div class="dialog" (click)="$event.stopPropagation()">
+        <h5 class="dialog-title">Update Card Information</h5>
+        <div class="dialog-fields">
+          <label>Brand<input type="text" [(ngModel)]="editCard.brand" name="brand" class="dialog-input" /></label>
+          <label>Last4<input type="text" [(ngModel)]="editCard.last4" name="last4" maxlength="4" class="dialog-input" /></label>
+          <label>Expiry (MM/YY)<input type="text" [(ngModel)]="editCard.expiry" name="expiry" class="dialog-input" /></label>
+          <label>Cardholder<input type="text" [(ngModel)]="editCard.cardholder" name="cardholder" class="dialog-input" /></label>
+        </div>
+        <div class="dialog-actions">
+          <button class="btn-outline" (click)="dialogOpen = false">Cancel</button>
+          <button class="btn-primary" (click)="saveCard()">Save</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <h5 class="billings-sub-title">Payment History</h5>
+  <div class="payments">
+    @for (p of payments; track p.id) {
+      <div class="pay-row">
+        <span class="pay-date">{{ formatDate(p.date) }}</span>
+        <span class="pay-amount">{{ p.amount }} zł</span>
+        <span class="pay-status" [style.color]="statusColor(p.status)" [style.border-color]="statusColor(p.status)">
+          {{ p.status }}
+        </span>
+        @if (p.status === 'Not payed') {
+          <button class="btn-primary btn-sm">Pay</button>
+        } @else {
+          <button class="btn-outline btn-sm">Generate PDF</button>
+        }
+      </div>
+    }
+  </div>
+</div>

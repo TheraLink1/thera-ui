@@ -1,0 +1,15 @@
+<div class="card" (click)="select()">
+  <div class="card-info">
+    <h6 class="card-name">{{ psychologist.name }}</h6>
+    <p class="card-spec">{{ psychologist.Specialization }}</p>
+    <p class="card-location">Adres: {{ psychologist.location }}</p>
+    <p class="card-rate">Stawka: {{ psychologist.hourlyRate }} zł</p>
+    @if (psychologist.Description) {
+      <p class="card-desc">{{ psychologist.Description }}</p>
+    }
+  </div>
+  <div class="card-meta">
+    <span class="card-rating">{{ psychologist.rating ?? 5 }} &#9733;</span>
+    <span class="card-more">Więcej informacji</span>
+  </div>
+</div>

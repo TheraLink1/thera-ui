@@ -1,0 +1,61 @@
+<div class="billings">
+  <h5 class="billings-title">Billing Overview</h5>
+
+  <div class="billings-cards">
+    <div class="stat-card stat-primary">
+      <p class="stat-label">Total Earned</p>
+      <p class="stat-value">PLN {{ totalEarned.toFixed(2) }}</p>
+    </div>
+    <div class="stat-card stat-hover">
+      <p class="stat-label">Pending Payments</p>
+      <p class="stat-value">PLN {{ pendingAmount.toFixed(2) }}</p>
+    </div>
+  </div>
+
+  <hr class="billings-divider" />
+
+  <h6 class="billings-sub-title">Payment Details</h6>
+  <div class="billings-table">
+    <div class="billing-row row-header">
+      <span>Date</span><span>Patient</span><span>Amount</span><span>Status</span>
+    </div>
+    @for (appt of relevant; track appt.id) {
+      <div class="billing-row">
+        <span>{{ formatDate(appt.scheduledAt ?? appt.date ?? '') }}</span>
+        <span>{{ appt.client?.name ?? '-' }}</span>
+        <span>{{ appt.payment ? 'PLN ' + appt.payment.amount.toFixed(2) : '—' }}</span>
+        <span [style.color]="appt.payment?.isPaid ? 'green' : 'orange'" style="font-weight:500">
+          {{ appt.payment?.isPaid ? 'Paid' : 'Unpaid' }}
+        </span>
+      </div>
+    }
+  </div>
+
+  <div class="billings-actions">
+    <button class="billings-btn" (click)="openDialog()">Cash Out</button>
+  </div>
+
+  @if (dialogOpen) {
+    <div class="dialog-overlay" (click)="dialogOpen = false">
+      <form class="dialog" (click)="$event.stopPropagation()" (submit)="$event.preventDefault(); submitCashOut()">
+        <h5 class="dialog-title">Enter Bank Details</h5>
+        <div class="dialog-fields">
+          <label>Bank Name<input type="text" [(ngModel)]="bankName" name="bankName" required class="dialog-input" /></label>
+          <label>Account Number<input type="text" [(ngModel)]="accountNumber" name="accNum" required class="dialog-input" /></label>
+          <label>Account Holder<input type="text" [(ngModel)]="accountHolder" name="holder" required class="dialog-input" /></label>
+          <label>Amount to Cash Out<input type="number" [(ngModel)]="cashOutAmount" name="amount" required class="dialog-input" /></label>
+          @if (amountError) { <p class="dialog-error">{{ amountError }}</p> }
+          <p class="dialog-balance">Available Balance: PLN {{ totalEarned.toFixed(2) }}</p>
+        </div>
+        <div class="dialog-actions">
+          <button type="button" class="billings-btn-outline" (click)="dialogOpen = false">Cancel</button>
+          <button type="submit" class="billings-btn">Submit</button>
+        </div>
+      </form>
+    </div>
+  }
+
+  @if (snackVisible) {
+    <div class="snack">Cash out request submitted!</div>
+  }
+</div>

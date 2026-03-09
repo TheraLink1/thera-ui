@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "brand": "TheraLink",
+    "tagline": "The help you deserve",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "profile": "Profile",
+    "logout": "Log Out"
+  },
+  "home": {
+    "heroTitle": "Find a doctor and book an appointment",
+    "heroSubtitle": "Connecting patients with the best specialists",
+    "searchKeyword": "Specialization / Name",
+    "searchLocation": "Location",
+    "search": "Search",
+    "noResults": "No results for the given filters."
+  },
+  "browse": {
+    "moreInfo": "More info",
+    "confirm": "Confirm",
+    "noResults": "No results for the given filters."
+  },
+  "booking": {
+    "title": "Confirm Booking",
+    "psychologist": "Psychologist",
+    "date": "Date",
+    "time": "Time",
+    "description": "Description (optional)",
+    "submit": "Book",
+    "success": "Booking submitted successfully!",
+    "error": "Error during booking."
+  },
+  "clientDashboard": {
+    "accountSettings": "Account Settings",
+    "appointments": "Appointments",
+    "billings": "Billings",
+    "verify": "Verify"
+  },
+  "psychologistDashboard": {
+    "accountSettings": "Account Settings",
+    "setAvailability": "Set Availability",
+    "appointments": "Appointments",
+    "billings": "Billings",
+    "calendar": "Calendar",
+    "ratings": "Ratings"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success"
+  }
+}

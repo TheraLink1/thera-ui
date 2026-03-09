@@ -1,0 +1,50 @@
+<div class="cal">
+  <div class="cal-card">
+    <div class="cal-legend">
+      <span class="cal-chip chip-avail">Available</span>
+      <span class="cal-chip chip-appt">Appointment</span>
+    </div>
+
+    <div class="cal-header">
+      <h5 class="cal-title">Weekly Calendar</h5>
+      <div class="cal-nav">
+        <button class="cal-nav-btn" (click)="prevWeek()">&#8592;</button>
+        <button class="cal-nav-btn" (click)="nextWeek()">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="cal-table-wrap">
+      <table class="cal-table">
+        <thead>
+          <tr>
+            <th class="cal-th th-time"></th>
+            @for (d of weekDates; track dateKey(d)) {
+              <th class="cal-th">{{ dayLabel(d) }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (time of timeSlots; track time) {
+            <tr>
+              <td class="cal-td-label">{{ time }}</td>
+              @for (d of weekDates; track dateKey(d)) {
+                @let block = blockAt(dateKey(d), time);
+                @if (block) {
+                  <td class="cal-cell" [class.cell-avail]="block.type === 'availability'" [class.cell-appt]="block.type === 'appointment'" rowspan="4">
+                    @if (block.type === 'appointment' && block.patientName) {
+                      <div class="cal-patient">{{ block.patientName }}</div>
+                    }
+                    <div class="cal-time">{{ time }}</div>
+                    <div class="cal-type-label">{{ block.type === 'appointment' ? 'Appointment' : 'Availability' }}</div>
+                  </td>
+                } @else {
+                  <td class="cal-cell cell-empty"></td>
+                }
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

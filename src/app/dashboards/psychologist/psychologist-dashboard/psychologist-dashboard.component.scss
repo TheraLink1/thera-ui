@@ -1,0 +1,40 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-sidebar {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 20px;
+  background: white;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  margin: 10px 0;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: normal;
+  transition: color 0.2s;
+
+  &.active {
+    color: #2b6369;
+    font-weight: bold;
+  }
+}

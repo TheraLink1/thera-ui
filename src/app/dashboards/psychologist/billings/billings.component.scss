@@ -1,0 +1,193 @@
+.billings {
+  padding: 20px;
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+.billings-title {
+  color: #2b6369;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.billings-sub-title {
+  color: #2b6369;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.billings-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  flex: 1 1 300px;
+  padding: 20px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-primary {
+  border-left: 5px solid #2b6369;
+}
+
+.stat-hover {
+  border-left: 5px solid #224f54;
+}
+
+.stat-label {
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.billings-divider {
+  border-color: #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+.billings-table {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.billing-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 10px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.row-header {
+  font-weight: bold;
+  color: #555;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fafafa;
+}
+
+.billings-actions {
+  margin-top: 2rem;
+}
+
+.billings-btn {
+  padding: 10px 20px;
+  background-color: #2b6369;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #224f54;
+  }
+}
+
+.billings-btn-outline {
+  padding: 8px 16px;
+  background: white;
+  color: #2b6369;
+  border: 1px solid #2b6369;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(43, 99, 105, 0.08);
+  }
+}
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.dialog {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-width: 320px;
+  max-width: 90vw;
+}
+
+.dialog-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.dialog-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #555;
+  }
+}
+
+.dialog-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.dialog-error {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.dialog-balance {
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.snack {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2b6369;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  z-index: 3000;
+}

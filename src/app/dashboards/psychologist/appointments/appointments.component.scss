@@ -1,0 +1,77 @@
+.appts-title {
+  color: #2b6369;
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.appt-card {
+  border: 1px solid #2b6369;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(43, 99, 105, 0.3);
+  }
+}
+
+.appt-date {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2b6369;
+}
+
+.appt-divider {
+  border-color: #2b6369;
+  opacity: 0.3;
+}
+
+.appt-link {
+  color: #2b6369;
+  font-size: 0.85rem;
+}
+
+.appt-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid #2b6369;
+  border-radius: 16px;
+  color: #2b6369;
+  font-size: 0.8rem;
+}
+
+.appt-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.appt-btn {
+  padding: 6px 14px;
+  border: 1px solid #2b6369;
+  border-radius: 4px;
+  background: white;
+  color: #2b6369;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(43, 99, 105, 0.08);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &.danger {
+    border-color: #d32f2f;
+    color: #d32f2f;
+  }
+}

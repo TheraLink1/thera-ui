@@ -1,0 +1,40 @@
+<div class="browse">
+  <div class="browse-map">
+    <p class="browse-map-placeholder">Map placeholder</p>
+  </div>
+
+  <div class="browse-list">
+    <div class="browse-filters">
+      <input
+        type="text"
+        placeholder="Specjalizacja / Imię"
+        [(ngModel)]="keyword"
+        (ngModelChange)="onFilterChange()"
+        class="filter-input"
+      />
+      <input
+        type="text"
+        placeholder="Lokalizacja"
+        [(ngModel)]="location"
+        (ngModelChange)="onFilterChange()"
+        class="filter-input"
+      />
+    </div>
+
+    @if (filtered.length > 0) {
+      @for (p of filtered; track p.id) {
+        <div class="card-wrap">
+          <thera-psychologist-card [psychologist]="p" (selected)="handleCardSelect($event)" />
+        </div>
+      }
+    } @else {
+      <p class="browse-empty">Brak wyników dla podanych filtrów.</p>
+    }
+  </div>
+
+  @if (selected) {
+    <div class="browse-panel" [@panelSlide]>
+      <thera-details-panel [psychologist]="selected" />
+    </div>
+  }
+</div>

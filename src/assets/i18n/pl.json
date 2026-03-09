@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "brand": "TheraLink",
+    "tagline": "The help you deserve",
+    "signIn": "Zaloguj się",
+    "signUp": "Zarejestruj się",
+    "profile": "Profil",
+    "logout": "Wyloguj"
+  },
+  "home": {
+    "heroTitle": "Znajdź lekarza i umów wizytę",
+    "heroSubtitle": "Łącząc pacjentów z najlepszymi specjalistami",
+    "searchKeyword": "Specjalizacja / Imię",
+    "searchLocation": "Lokalizacja",
+    "search": "Szukaj",
+    "noResults": "Brak wyników dla podanych filtrów."
+  },
+  "browse": {
+    "moreInfo": "Więcej informacji",
+    "confirm": "Potwierdź",
+    "noResults": "Brak wyników dla podanych filtrów."
+  },
+  "booking": {
+    "title": "Potwierdź rezerwację",
+    "psychologist": "Psycholog",
+    "date": "Data",
+    "time": "Godzina",
+    "description": "Opis (opcjonalnie)",
+    "submit": "Zarezerwuj",
+    "success": "Wizyta została zarezerwowana!",
+    "error": "Wystąpił błąd podczas rezerwacji."
+  },
+  "clientDashboard": {
+    "accountSettings": "Ustawienia konta",
+    "appointments": "Wizyty",
+    "billings": "Płatności",
+    "verify": "Weryfikacja"
+  },
+  "psychologistDashboard": {
+    "accountSettings": "Ustawienia konta",
+    "setAvailability": "Ustaw dostępność",
+    "appointments": "Wizyty",
+    "billings": "Płatności",
+    "calendar": "Kalendarz",
+    "ratings": "Oceny"
+  },
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "loading": "Ładowanie...",
+    "error": "Wystąpił błąd",
+    "success": "Sukces"
+  }
+}

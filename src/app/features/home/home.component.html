@@ -1,0 +1,91 @@
+<div class="page">
+  <section class="hero">
+    <div class="hero-inner">
+      <h3 class="hero-title">Znajdź lekarza i umów wizytę</h3>
+      <p class="hero-subtitle">Znajdź idealnego specjalistę w kilka chwil. Wybierz, co Ci odpowiada.</p>
+      <form class="search-form" (submit)="handleSearch($event)">
+        <div class="search-input-wrap">
+          <span class="search-icon">&#9671;</span>
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Specjalizacja lub nazwisko"
+            [(ngModel)]="keyword"
+            name="keyword"
+          />
+        </div>
+        <div class="search-input-wrap">
+          <span class="search-icon">&#9711;</span>
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Miasto lub kod pocztowy"
+            [(ngModel)]="location"
+            name="location"
+          />
+        </div>
+        <button type="submit" class="search-btn">Szukaj</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="tiles-section">
+    <div class="tiles-inner">
+      @for (tile of tiles; track tile.title) {
+        <div class="tile">
+          <h6 class="tile-title">{{ tile.title }}</h6>
+          <p class="tile-desc">{{ tile.desc }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <div class="section-inner">
+      <h4 class="section-title">Opinie użytkowników</h4>
+      <p class="section-subtitle">Sprawdź, co mówią o nas inni pacjenci.</p>
+      @for (t of testimonials; track t.name) {
+        <div class="testimonial">
+          <p class="testimonial-quote">"{{ t.quote }}"</p>
+          <span class="testimonial-author">– {{ t.name }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="section-inner">
+      <h4 class="section-title">Najczęściej zadawane pytania</h4>
+      <p class="section-subtitle">Odpowiedzi na pytania, które mogą Ci pomóc.</p>
+      @for (f of faqs; track f.question) {
+        <div class="faq-card">
+          <p class="faq-question">{{ f.question }}</p>
+          <p class="faq-answer">{{ f.answer }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="section-inner">
+      <h4 class="section-title">Nasze osiągnięcia w liczbach</h4>
+      <p class="section-subtitle">Dziękujemy za zaufanie!</p>
+      <div class="stats-grid">
+        @for (s of stats; track s.value) {
+          <div class="stat-card">
+            <p class="stat-value">{{ s.value }}</p>
+            <p class="stat-label">{{ s.label }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h4 class="cta-title">Gotowy, by zadbać o swoje zdrowie?</h4>
+      <p class="cta-subtitle">Dołącz do tysięcy użytkowników, którzy już korzystają z TheraLink. Zarejestruj się i umów pierwszą wizytę już teraz!</p>
+      <button class="cta-btn">Załóż konto</button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,21 @@
+<nav class="navbar">
+  <div class="nav-brand">
+    <a routerLink="/" class="nav-logo-link">
+      <img src="favicon.ico" alt="Logo" class="nav-logo" />
+    </a>
+    <div class="nav-titles">
+      <span class="nav-title">{{ 'nav.brand' | transloco }}</span>
+      <span class="nav-tagline">{{ 'nav.tagline' | transloco }}</span>
+    </div>
+  </div>
+
+  <div class="nav-actions">
+    @if (auth.isLoggedIn()) {
+      <a routerLink="/dashboard/client" class="nav-btn">{{ 'nav.profile' | transloco }}</a>
+      <button class="nav-btn" (click)="logout()">{{ 'nav.logout' | transloco }}</button>
+    } @else {
+      <a routerLink="/signup" class="nav-btn">{{ 'nav.signUp' | transloco }}</a>
+      <a routerLink="/signin" class="nav-btn">{{ 'nav.signIn' | transloco }}</a>
+    }
+  </div>
+</nav>

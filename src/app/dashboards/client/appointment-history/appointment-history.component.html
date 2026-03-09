@@ -1,0 +1,31 @@
+<div class="history">
+  <h4 class="history-title">Appointment History</h4>
+
+  @if (loading) {
+    <p>Loading...</p>
+  } @else if (appointments.length === 0) {
+    <p>No past appointments found.</p>
+  } @else {
+    @for (appt of appointments; track appt.id) {
+      <div class="appt-card">
+        <div class="appt-header">{{ formatDate(appt.scheduledAt ?? appt.date ?? '') }}</div>
+        <hr class="appt-divider" />
+        <p><strong>Psycholog:</strong> {{ appt.psychologist?.name ?? '-' }}</p>
+        <p><a class="appt-link" href="mailto:{{ appt.psychologist?.email }}">{{ appt.psychologist?.email }}</a></p>
+        @if (appt.meetingLink) {
+          <p><strong>Meeting Link:</strong> <a [href]="appt.meetingLink" target="_blank">{{ appt.meetingLink }}</a></p>
+        }
+        <p><strong>Status:</strong> <span class="appt-chip">{{ appt.status }}</span></p>
+        @if (appt.payment) {
+          <p>{{ appt.payment.isPaid ? 'Paid' : 'Unpaid' }} – {{ appt.payment.amount }} zł</p>
+        }
+        @if (isModifiable(appt)) {
+          <div class="appt-actions">
+            <button class="appt-btn">Reschedule</button>
+            <button class="appt-btn">Cancel</button>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

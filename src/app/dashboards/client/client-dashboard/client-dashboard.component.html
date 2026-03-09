@@ -1,0 +1,21 @@
+<div class="dashboard">
+  <aside class="dashboard-sidebar">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <a routerLink="account-settings" routerLinkActive="active" class="sidebar-link">{{ 'clientDashboard.accountSettings' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="appointments" routerLinkActive="active" class="sidebar-link">{{ 'clientDashboard.appointments' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="billings" routerLinkActive="active" class="sidebar-link">{{ 'clientDashboard.billings' | transloco }}</a>
+      </li>
+      <li class="sidebar-item">
+        <a routerLink="verify" routerLinkActive="active" class="sidebar-link">{{ 'clientDashboard.verify' | transloco }}</a>
+      </li>
+    </ul>
+  </aside>
+  <main class="dashboard-main">
+    <router-outlet />
+  </main>
+</div>
