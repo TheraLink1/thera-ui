@@ -32,7 +32,7 @@ cat > "$OUTPUT_FILE" << EOF
 # $COMMIT_MSG
 
 **Data:** $DATE
-**Hash:** `$COMMIT_HASH`
+**Hash:** \`$COMMIT_HASH\`
 **Serwis:** $SERVICE_FOLDER
 $STATS
 
