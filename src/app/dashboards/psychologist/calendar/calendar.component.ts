@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { format, addDays, isBefore, startOfDay } from 'date-fns';
+import { forkJoin } from 'rxjs';
+import { tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { AvailabilityService } from '../../../core/services/availability.service';
 import { AppointmentService } from '../../../core/services/appointment.service';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -29,28 +32,30 @@ interface Block {
   imports: [CommonModule],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PsychCalendarComponent implements OnInit {
-  timeSlots = generateTimeSlots();
-  weekStart = startOfDay(new Date());
-  blocksByDate: Record<string, Block[]> = {};
+export class PsychCalendarComponent {
+  private availService = inject(AvailabilityService);
+  private apptService  = inject(AppointmentService);
+  private auth         = inject(AuthService);
 
-  constructor(
-    private availService: AvailabilityService,
-    private apptService: AppointmentService,
-    private auth: AuthService
-  ) {}
+  timeSlots    = generateTimeSlots();
+  weekStart    = signal(startOfDay(new Date()));
+  blocksByDate = signal<Record<string, Block[]>>({});
 
-  ngOnInit() {
-    const id = this.auth.getUserId();
-    this.availService.getForPsychologist(id).subscribe({
-      next: (slots) => this.apptService.getForPsychologist(id).subscribe({
-        next: (appts) => this.buildBlocks(slots, appts),
-      }),
-    });
-  }
+  weekDates = computed<Date[]>(() => Array.from({ length: 7 }, (_, i) => addDays(this.weekStart(), i)));
 
-  buildBlocks(slots: CalendarSlot[], appts: Appointment[]) {
+  private _init = toSignal(
+    forkJoin([
+      this.availService.getForPsychologist(this.auth.getUserId()),
+      this.apptService.getForPsychologist(this.auth.getUserId()),
+    ]).pipe(
+      tap(([slots, appts]) => this.blocksByDate.set(this.buildBlocks(slots, appts)))
+    ),
+    { initialValue: null }
+  );
+
+  private buildBlocks(slots: CalendarSlot[], appts: Appointment[]): Record<string, Block[]> {
     const map: Record<string, Block[]> = {};
     for (const a of appts) {
       const key = a.scheduledAt ? a.scheduledAt.slice(0, 10) : (a.date ?? '').slice(0, 10);
@@ -65,11 +70,7 @@ export class PsychCalendarComponent implements OnInit {
         map[key].push({ type: 'availability', startHour: s.startHour });
       }
     }
-    this.blocksByDate = map;
-  }
-
-  get weekDates(): Date[] {
-    return Array.from({ length: 7 }, (_, i) => addDays(this.weekStart, i));
+    return map;
   }
 
   dateKey(d: Date): string {
@@ -81,15 +82,15 @@ export class PsychCalendarComponent implements OnInit {
   }
 
   blockAt(dateKey: string, time: string): Block | null {
-    return this.blocksByDate[dateKey]?.find((b) => b.startHour === time) ?? null;
+    return this.blocksByDate()[dateKey]?.find((b) => b.startHour === time) ?? null;
   }
 
   prevWeek() {
-    const prev = addDays(this.weekStart, -7);
-    if (!isBefore(prev, startOfDay(new Date()))) this.weekStart = prev;
+    const prev = addDays(this.weekStart(), -7);
+    if (!isBefore(prev, startOfDay(new Date()))) this.weekStart.set(prev);
   }
 
   nextWeek() {
-    this.weekStart = addDays(this.weekStart, 7);
+    this.weekStart.set(addDays(this.weekStart(), 7));
   }
 }

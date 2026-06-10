@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, map, of, startWith, switchMap } from 'rxjs';
 import { AppointmentService } from '../../../core/services/appointment.service';
 import { PsychologistService } from '../../../core/services/psychologist.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { Psychologist } from '../../../core/services/psychologist.service';
+
+interface PsychologistResult {
+  psychologist: Psychologist | null;
+  loading: boolean;
+}
 
 @Component({
   selector: 'thera-confirm-booking',
@@ -14,60 +21,55 @@ import { Psychologist } from '../../../core/services/psychologist.service';
   imports: [CommonModule, FormsModule, MatSnackBarModule],
   templateUrl: './confirm-booking.component.html',
   styleUrl: './confirm-booking.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConfirmBookingComponent implements OnInit {
-  date = '';
-  time = '';
-  psychologistId = '';
-  psychologist: Psychologist | null = null;
-  loading = true;
-  description = '';
+export class ConfirmBookingComponent {
+  private route               = inject(ActivatedRoute);
+  private router              = inject(Router);
+  private snackBar            = inject(MatSnackBar);
+  private appointmentService  = inject(AppointmentService);
+  private psychologistService = inject(PsychologistService);
+  private auth                = inject(AuthService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private appointmentService: AppointmentService,
-    private psychologistService: PsychologistService,
-    private auth: AuthService
-  ) {}
+  private qp = toSignal(this.route.queryParams, { initialValue: {} as Params });
 
-  ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      this.date = params['date'] ?? '';
-      this.time = params['time'] ?? '';
-      this.psychologistId = params['psychologistId'] ?? '';
-      if (this.psychologistId) {
-        this.psychologistService.getById(this.psychologistId).subscribe({
-          next: (p) => {
-            this.psychologist = p;
-            this.loading = false;
-          },
-          error: () => {
-            this.psychologist = null;
-            this.loading = false;
-          },
-        });
-      } else {
-        this.loading = false;
-      }
-    });
-  }
+  date           = computed(() => this.qp()['date'] ?? '');
+  time           = computed(() => this.qp()['time'] ?? '');
+  psychologistId = computed(() => this.qp()['psychologistId'] ?? '');
 
-  get canConfirm(): boolean {
-    return !!this.psychologist && !!this.date && !!this.time && this.auth.isLoggedIn();
-  }
+  private psychologistResult = toSignal(
+    toObservable(this.psychologistId).pipe(
+      switchMap(id =>
+        id
+          ? this.psychologistService.getById(id).pipe(
+              map(p => ({ psychologist: p, loading: false }) as PsychologistResult),
+              startWith({ psychologist: null, loading: true } as PsychologistResult),
+              catchError(() => of({ psychologist: null, loading: false } as PsychologistResult))
+            )
+          : of({ psychologist: null, loading: false } as PsychologistResult)
+      )
+    ),
+    { initialValue: { psychologist: null, loading: true } as PsychologistResult }
+  );
+
+  psychologist = computed(() => this.psychologistResult().psychologist);
+  loading      = computed(() => this.psychologistResult().loading);
+  description  = signal('');
+
+  canConfirm = computed(() =>
+    !!this.psychologist() && !!this.date() && !!this.time() && this.auth.isLoggedIn()
+  );
 
   confirm() {
-    if (!this.canConfirm) return;
-    const scheduledAt = `${this.date}T${this.time}:00`;
+    if (!this.canConfirm()) return;
+    const scheduledAt = `${this.date()}T${this.time()}:00`;
     this.appointmentService
       .create({
         clientKeycloakId: this.auth.getUserId(),
-        psychologistKeycloakId: this.psychologistId,
+        psychologistKeycloakId: this.psychologistId(),
         scheduledAt,
         durationMinutes: 60,
-        description: this.description,
+        description: this.description(),
       })
       .subscribe({
         next: () => {

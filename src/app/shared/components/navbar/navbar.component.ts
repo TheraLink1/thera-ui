@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
@@ -10,9 +10,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
   imports: [RouterLink, CommonModule, TranslocoPipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
-  constructor(public auth: AuthService) {}
+  protected auth = inject(AuthService);
 
   login() {
     this.auth.login();

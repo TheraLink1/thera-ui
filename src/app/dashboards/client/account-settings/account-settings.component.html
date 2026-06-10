@@ -5,20 +5,20 @@
 
     <div class="settings-field">
       <label class="settings-label">Name</label>
-      <input class="settings-input" type="text" [(ngModel)]="name" name="name" />
+      <input class="settings-input" type="text" [ngModel]="name()" (ngModelChange)="name.set($event)" name="name" />
     </div>
 
     <div class="settings-field">
       <label class="settings-label">Email</label>
-      <input class="settings-input" type="email" [(ngModel)]="email" name="email" />
+      <input class="settings-input" type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" name="email" />
     </div>
 
-    @if (message) {
-      <p class="settings-msg" [class.error]="messageType === 'error'">{{ message }}</p>
+    @if (message()) {
+      <p class="settings-msg" [class.error]="messageType() === 'error'">{{ message() }}</p>
     }
 
-    <button class="settings-btn" (click)="save()" [disabled]="saving || !name || !email">
-      {{ saving ? 'Saving...' : 'Save Changes' }}
+    <button class="settings-btn" (click)="save()" [disabled]="saving() || !name() || !email()">
+      {{ saving() ? 'Saving...' : 'Save Changes' }}
     </button>
   </div>
 </div>

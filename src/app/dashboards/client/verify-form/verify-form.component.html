@@ -7,33 +7,33 @@
 
     <div class="verify-field">
       <label class="verify-label" for="rate">Hourly Rate:</label>
-      <input id="rate" type="number" [(ngModel)]="hourlyRate" name="hourlyRate" placeholder="Enter hourly rate" required class="verify-input" [disabled]="loading" />
+      <input id="rate" type="number" [ngModel]="hourlyRate()" (ngModelChange)="hourlyRate.set($event)" name="hourlyRate" placeholder="Enter hourly rate" required class="verify-input" [disabled]="loading()" />
     </div>
 
     <div class="verify-field">
       <label class="verify-label" for="desc">Description:</label>
-      <textarea id="desc" [(ngModel)]="description" name="description" placeholder="Enter your description" required class="verify-textarea" [disabled]="loading"></textarea>
+      <textarea id="desc" [ngModel]="description()" (ngModelChange)="description.set($event)" name="description" placeholder="Enter your description" required class="verify-textarea" [disabled]="loading()"></textarea>
     </div>
 
     <div class="verify-field">
       <label class="verify-label" for="id">Upload ID:</label>
-      <input id="id" type="file" (change)="onIdFile($event)" accept="image/*,application/pdf" required class="verify-file" [disabled]="loading" />
+      <input id="id" type="file" (change)="onIdFile($event)" accept="image/*,application/pdf" required class="verify-file" [disabled]="loading()" />
     </div>
 
     <div class="verify-field">
       <label class="verify-label" for="edu">Proof of Education:</label>
-      <input id="edu" type="file" (change)="onEducationFile($event)" accept="image/*,application/pdf" required class="verify-file" [disabled]="loading" />
+      <input id="edu" type="file" (change)="onEducationFile($event)" accept="image/*,application/pdf" required class="verify-file" [disabled]="loading()" />
     </div>
 
-    @if (success) {
+    @if (success()) {
       <p class="verify-success">Your profile verification request has been submitted successfully.</p>
     }
-    @if (error) {
-      <p class="verify-error">{{ error }}</p>
+    @if (error()) {
+      <p class="verify-error">{{ error() }}</p>
     }
 
-    <button type="submit" class="verify-btn" [disabled]="loading">
-      {{ loading ? 'Submitting...' : 'Submit' }}
+    <button type="submit" class="verify-btn" [disabled]="loading()">
+      {{ loading() ? 'Submitting...' : 'Submit' }}
     </button>
   </form>
 </div>

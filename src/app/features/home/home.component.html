@@ -10,7 +10,8 @@
             class="search-input"
             type="text"
             placeholder="Specjalizacja lub nazwisko"
-            [(ngModel)]="keyword"
+            [ngModel]="keyword()"
+            (ngModelChange)="keyword.set($event)"
             name="keyword"
           />
         </div>
@@ -20,7 +21,8 @@
             class="search-input"
             type="text"
             placeholder="Miasto lub kod pocztowy"
-            [(ngModel)]="location"
+            [ngModel]="location()"
+            (ngModelChange)="location.set($event)"
             name="location"
           />
         </div>

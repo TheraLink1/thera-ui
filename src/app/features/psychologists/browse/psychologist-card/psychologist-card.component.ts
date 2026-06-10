@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Psychologist } from '../../../../core/services/psychologist.service';
 
@@ -8,12 +8,13 @@ import { Psychologist } from '../../../../core/services/psychologist.service';
   imports: [CommonModule],
   templateUrl: './psychologist-card.component.html',
   styleUrl: './psychologist-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PsychologistCardComponent {
-  @Input() psychologist!: Psychologist;
-  @Output() selected = new EventEmitter<Psychologist>();
+  psychologist = input.required<Psychologist>();
+  selected = output<Psychologist>();
 
   select() {
-    this.selected.emit(this.psychologist);
+    this.selected.emit(this.psychologist());
   }
 }

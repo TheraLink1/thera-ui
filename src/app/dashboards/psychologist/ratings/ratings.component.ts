@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface RatingData {
@@ -13,6 +13,7 @@ interface RatingData {
   imports: [CommonModule],
   templateUrl: './ratings.component.html',
   styleUrl: './ratings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PsychRatingsComponent {
   reviews: RatingData[] = [

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
   imports: [FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  keyword = '';
-  location = '';
+  keyword = signal('');
+  location = signal('');
 
   tiles = [
     {
@@ -46,11 +47,11 @@ export class HomeComponent {
     { value: '12 000+', label: 'Umówionych wizyt' },
   ];
 
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   handleSearch(e: Event) {
     e.preventDefault();
-    const params = new URLSearchParams({ keyword: this.keyword, location: this.location }).toString();
+    const params = new URLSearchParams({ keyword: this.keyword(), location: this.location() }).toString();
     this.router.navigateByUrl(`/psychologists?${params}`);
   }
 }

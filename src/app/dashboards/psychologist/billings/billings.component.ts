@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AppointmentService } from '../../../core/services/appointment.service';
+import { Store } from '@ngxs/store';
 import { AuthService } from '../../../core/auth/auth.service';
 import { Appointment } from '../../../core/services/appointment.service';
+import { AppointmentsState, LoadPsychologistAppointments } from '../../client/state/appointments.state';
 
 @Component({
   selector: 'thera-psych-billings',
@@ -11,36 +12,39 @@ import { Appointment } from '../../../core/services/appointment.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './billings.component.html',
   styleUrl: './billings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PsychBillingsComponent implements OnInit {
-  appointments: Appointment[] = [];
-  dialogOpen = false;
-  bankName = '';
-  accountNumber = '';
-  accountHolder = '';
-  cashOutAmount = '';
-  amountError = '';
-  snackVisible = false;
+export class PsychBillingsComponent {
+  private store = inject(Store);
+  private auth  = inject(AuthService);
 
-  constructor(private service: AppointmentService, private auth: AuthService) {}
+  appointments = this.store.selectSignal(AppointmentsState.items);
 
-  ngOnInit() {
-    const id = this.auth.getUserId();
-    this.service.getForPsychologist(id).subscribe({
-      next: (data) => (this.appointments = data),
+  dialogOpen     = signal(false);
+  bankName       = signal('');
+  accountNumber  = signal('');
+  accountHolder  = signal('');
+  cashOutAmount  = signal('');
+  amountError    = signal('');
+  snackVisible   = signal(false);
+
+  relevant = computed(() =>
+    this.appointments().filter((a: Appointment) => a.status === 'APPROVED' || a.status === 'PENDING')
+  );
+
+  totalEarned = computed(() =>
+    this.relevant().filter((a: Appointment) => a.payment?.isPaid).reduce((s, a) => s + (a.payment?.amount ?? 0), 0)
+  );
+
+  pendingAmount = computed(() =>
+    this.relevant().filter((a: Appointment) => a.payment && !a.payment.isPaid).reduce((s, a) => s + (a.payment?.amount ?? 0), 0)
+  );
+
+  constructor() {
+    effect(() => {
+      const id = this.auth.getUserId();
+      if (id) this.store.dispatch(new LoadPsychologistAppointments(id));
     });
-  }
-
-  get relevant(): Appointment[] {
-    return this.appointments.filter((a) => a.status === 'APPROVED' || a.status === 'PENDING');
-  }
-
-  get totalEarned(): number {
-    return this.relevant.filter((a) => a.payment?.isPaid).reduce((s, a) => s + (a.payment?.amount ?? 0), 0);
-  }
-
-  get pendingAmount(): number {
-    return this.relevant.filter((a) => a.payment && !a.payment.isPaid).reduce((s, a) => s + (a.payment?.amount ?? 0), 0);
   }
 
   formatDate(d: string) {
@@ -48,26 +52,26 @@ export class PsychBillingsComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialogOpen = true;
-    this.amountError = '';
+    this.dialogOpen.set(true);
+    this.amountError.set('');
   }
 
   submitCashOut() {
-    const amount = parseFloat(this.cashOutAmount);
+    const amount = parseFloat(this.cashOutAmount());
     if (isNaN(amount) || amount <= 0) {
-      this.amountError = 'Please enter a valid amount.';
+      this.amountError.set('Please enter a valid amount.');
       return;
     }
-    if (amount > this.totalEarned) {
-      this.amountError = 'Amount exceeds available balance.';
+    if (amount > this.totalEarned()) {
+      this.amountError.set('Amount exceeds available balance.');
       return;
     }
-    this.dialogOpen = false;
-    this.snackVisible = true;
-    this.bankName = '';
-    this.accountNumber = '';
-    this.accountHolder = '';
-    this.cashOutAmount = '';
-    setTimeout(() => (this.snackVisible = false), 4000);
+    this.dialogOpen.set(false);
+    this.snackVisible.set(true);
+    this.bankName.set('');
+    this.accountNumber.set('');
+    this.accountHolder.set('');
+    this.cashOutAmount.set('');
+    setTimeout(() => this.snackVisible.set(false), 4000);
   }
 }

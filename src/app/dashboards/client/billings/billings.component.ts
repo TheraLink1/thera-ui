@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -22,31 +22,32 @@ interface PaymentRecord {
   imports: [CommonModule, FormsModule],
   templateUrl: './billings.component.html',
   styleUrl: './billings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientBillingsComponent {
-  cardInfo: CardInfo = {
+  cardInfo = signal<CardInfo>({
     brand: 'Visa',
     last4: '4242',
     expiry: '12/26',
     cardholder: 'Jan Kowalski',
-  };
+  });
 
   payments: PaymentRecord[] = [
     { id: 1, date: '2025-05-01T12:00:00Z', amount: 200, status: 'Paid' },
     { id: 2, date: '2025-04-15T09:30:00Z', amount: 150, status: 'Not payed' },
   ];
 
-  editCard = { ...this.cardInfo };
-  dialogOpen = false;
+  editCard = signal<CardInfo>({ ...this.cardInfo() });
+  dialogOpen = signal(false);
 
   openDialog() {
-    this.editCard = { ...this.cardInfo };
-    this.dialogOpen = true;
+    this.editCard.set({ ...this.cardInfo() });
+    this.dialogOpen.set(true);
   }
 
   saveCard() {
-    this.cardInfo = { ...this.editCard };
-    this.dialogOpen = false;
+    this.cardInfo.set({ ...this.editCard() });
+    this.dialogOpen.set(false);
   }
 
   formatDate(d: string) {

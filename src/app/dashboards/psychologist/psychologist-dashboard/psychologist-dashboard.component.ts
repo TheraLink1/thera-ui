@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 
@@ -8,5 +8,6 @@ import { TranslocoPipe } from '@jsverse/transloco';
   imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslocoPipe],
   templateUrl: './psychologist-dashboard.component.html',
   styleUrl: './psychologist-dashboard.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PsychologistDashboardComponent {}

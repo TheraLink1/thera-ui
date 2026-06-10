@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { format } from 'date-fns';
-import { AppointmentService } from '../../../core/services/appointment.service';
+import { Store } from '@ngxs/store';
 import { AuthService } from '../../../core/auth/auth.service';
 import { Appointment } from '../../../core/services/appointment.service';
+import { AppointmentsState, LoadPsychologistAppointments } from '../../client/state/appointments.state';
 
 @Component({
   selector: 'thera-psych-appointments',
@@ -11,25 +12,20 @@ import { Appointment } from '../../../core/services/appointment.service';
   imports: [CommonModule],
   templateUrl: './appointments.component.html',
   styleUrl: './appointments.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PsychAppointmentsComponent implements OnInit {
-  appointments: Appointment[] = [];
-  loading = true;
-  error = false;
+export class PsychAppointmentsComponent {
+  private store = inject(Store);
+  private auth  = inject(AuthService);
 
-  constructor(private service: AppointmentService, private auth: AuthService) {}
+  appointments = this.store.selectSignal(AppointmentsState.items);
+  loading      = this.store.selectSignal(AppointmentsState.loading);
+  error        = signal(false);
 
-  ngOnInit() {
-    const id = this.auth.getUserId();
-    this.service.getForPsychologist(id).subscribe({
-      next: (data) => {
-        this.appointments = data;
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-        this.error = true;
-      },
+  constructor() {
+    effect(() => {
+      const id = this.auth.getUserId();
+      if (id) this.store.dispatch(new LoadPsychologistAppointments(id));
     });
   }
 

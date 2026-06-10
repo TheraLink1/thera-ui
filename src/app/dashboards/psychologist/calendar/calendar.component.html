@@ -18,7 +18,7 @@
         <thead>
           <tr>
             <th class="cal-th th-time"></th>
-            @for (d of weekDates; track dateKey(d)) {
+            @for (d of weekDates(); track dateKey(d)) {
               <th class="cal-th">{{ dayLabel(d) }}</th>
             }
           </tr>
@@ -27,7 +27,7 @@
           @for (time of timeSlots; track time) {
             <tr>
               <td class="cal-td-label">{{ time }}</td>
-              @for (d of weekDates; track dateKey(d)) {
+              @for (d of weekDates(); track dateKey(d)) {
                 @let block = blockAt(dateKey(d), time);
                 @if (block) {
                   <td class="cal-cell" [class.cell-avail]="block.type === 'availability'" [class.cell-appt]="block.type === 'appointment'" rowspan="4">

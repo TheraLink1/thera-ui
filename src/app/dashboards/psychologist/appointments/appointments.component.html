@@ -1,14 +1,14 @@
 <div class="appts">
   <h4 class="appts-title">Upcoming Appointments</h4>
 
-  @if (loading) {
+  @if (loading()) {
     <p>Loading appointments...</p>
-  } @else if (error) {
+  } @else if (error()) {
     <p>Error loading appointments.</p>
-  } @else if (appointments.length === 0) {
+  } @else if (appointments().length === 0) {
     <p>No upcoming appointments.</p>
   } @else {
-    @for (appt of appointments; track appt.id) {
+    @for (appt of appointments(); track appt.id) {
       <div class="appt-card">
         <div class="appt-date">{{ formatDate(appt.scheduledAt ?? appt.date ?? '') }}</div>
         <hr class="appt-divider" />

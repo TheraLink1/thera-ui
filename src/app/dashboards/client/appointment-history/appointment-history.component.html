@@ -1,12 +1,12 @@
 <div class="history">
   <h4 class="history-title">Appointment History</h4>
 
-  @if (loading) {
+  @if (loading()) {
     <p>Loading...</p>
-  } @else if (appointments.length === 0) {
+  } @else if (appointments().length === 0) {
     <p>No past appointments found.</p>
   } @else {
-    @for (appt of appointments; track appt.id) {
+    @for (appt of appointments(); track appt.id) {
       <div class="appt-card">
         <div class="appt-header">{{ formatDate(appt.scheduledAt ?? appt.date ?? '') }}</div>
         <hr class="appt-divider" />

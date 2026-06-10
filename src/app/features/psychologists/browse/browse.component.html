@@ -8,21 +8,21 @@
       <input
         type="text"
         placeholder="Specjalizacja / Imię"
-        [(ngModel)]="keyword"
-        (ngModelChange)="onFilterChange()"
+        [ngModel]="keyword()"
+        (ngModelChange)="keyword.set($event); onFilterChange()"
         class="filter-input"
       />
       <input
         type="text"
         placeholder="Lokalizacja"
-        [(ngModel)]="location"
-        (ngModelChange)="onFilterChange()"
+        [ngModel]="location()"
+        (ngModelChange)="location.set($event); onFilterChange()"
         class="filter-input"
       />
     </div>
 
-    @if (filtered.length > 0) {
-      @for (p of filtered; track p.id) {
+    @if (filtered().length > 0) {
+      @for (p of filtered(); track p.id) {
         <div class="card-wrap">
           <thera-psychologist-card [psychologist]="p" (selected)="handleCardSelect($event)" />
         </div>
@@ -32,9 +32,9 @@
     }
   </div>
 
-  @if (selected) {
+  @if (selected()) {
     <div class="browse-panel" [@panelSlide]>
-      <thera-details-panel [psychologist]="selected" />
+      <thera-details-panel [psychologist]="selected()!" />
     </div>
   }
 </div>

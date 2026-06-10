@@ -1,14 +1,14 @@
 <div class="page">
-  @if (loading) {
+  @if (loading()) {
     <p>Ładowanie...</p>
   } @else {
     <div class="booking-card">
       <h5 class="booking-title">Potwierdzenie wizyty</h5>
-      <p class="booking-row"><strong>Data:</strong> {{ date }}</p>
-      <p class="booking-row"><strong>Godzina:</strong> {{ time }}</p>
-      @if (psychologist) {
-        <p class="booking-row"><strong>Psycholog:</strong> {{ psychologist.name }}</p>
-        <p class="booking-row"><strong>Specjalizacja:</strong> {{ psychologist.Specialization }}</p>
+      <p class="booking-row"><strong>Data:</strong> {{ date() }}</p>
+      <p class="booking-row"><strong>Godzina:</strong> {{ time() }}</p>
+      @if (psychologist()) {
+        <p class="booking-row"><strong>Psycholog:</strong> {{ psychologist()!.name }}</p>
+        <p class="booking-row"><strong>Specjalizacja:</strong> {{ psychologist()!.Specialization }}</p>
       } @else {
         <p class="booking-error">Nie znaleziono psychologa o podanym identyfikatorze.</p>
       }
@@ -17,11 +17,12 @@
         <textarea
           class="booking-textarea"
           rows="4"
-          [(ngModel)]="description"
+          [ngModel]="description()"
+          (ngModelChange)="description.set($event)"
           name="description"
         ></textarea>
       </div>
-      <button class="booking-btn" (click)="confirm()" [disabled]="!canConfirm">
+      <button class="booking-btn" (click)="confirm()" [disabled]="!canConfirm()">
         Potwierdź wizytę
       </button>
     </div>
