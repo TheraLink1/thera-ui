@@ -1,0 +1,30 @@
+@if (loading()) {
+  <p class="slot-picker-loading">{{ 'common.loading' | transloco }}</p>
+} @else {
+  <div class="slot-picker">
+    <h3 class="slot-picker-title">{{ 'booking.selectDate' | transloco }}:</h3>
+    <mat-calendar
+      [selected]="selectedDate()"
+      [dateFilter]="isDateAvailable"
+      (selectedChange)="onDateChange($event)"
+      class="slot-picker-calendar"
+    ></mat-calendar>
+
+    @if (selectedDate()) {
+      <h4 class="slot-picker-subtitle">{{ 'booking.selectTime' | transloco }}:</h4>
+      <div class="time-slots">
+        @for (t of availableTimes(); track t) {
+          <button
+            class="time-btn"
+            [class.selected]="t === selectedTime()"
+            (click)="selectTime(t)"
+          >{{ t }}</button>
+        }
+        @if (availableTimes().length === 0) {
+          <p>{{ 'booking.noSlots' | transloco }}</p>
+        }
+      </div>
+      <p class="slot-picker-hint">{{ 'booking.sessionDuration' | transloco }}</p>
+    }
+  </div>
+}

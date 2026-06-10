@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { provideTranslocoScope } from '@jsverse/transloco';
 import { authGuard } from '../../core/auth/guards/auth.guard';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { ClientAccountSettingsComponent } from './account-settings/account-settings.component';
@@ -12,6 +13,7 @@ export const CLIENT_DASHBOARD_ROUTES: Routes = [
     component: ClientDashboardComponent,
     canActivate: [authGuard],
     data: { roles: ['client'] },
+    providers: [provideTranslocoScope('clientDashboard')],
     children: [
       { path: 'account-settings', component: ClientAccountSettingsComponent },
       { path: 'appointments', component: AppointmentHistoryComponent },

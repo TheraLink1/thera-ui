@@ -1,0 +1,15 @@
+{
+  "title": "Potwierdź rezerwację",
+  "psychologist": "Psycholog",
+  "date": "Data",
+  "time": "Godzina",
+  "description": "Opis (opcjonalnie)",
+  "submit": "Zarezerwuj",
+  "success": "Wizyta została zarezerwowana!",
+  "error": "Wystąpił błąd podczas rezerwacji.",
+  "selectDate": "Wybierz datę wizyty",
+  "selectTime": "Dostępne godziny",
+  "noSlots": "Brak dostępnych godzin na ten dzień.",
+  "sessionDuration": "Wszystkie spotkania trwają 60 minut.",
+  "bookOn": "Umów spotkanie na {{ date }} o {{ time }}"
+}

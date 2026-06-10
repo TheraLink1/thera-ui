@@ -1,0 +1,15 @@
+{
+  "title": "Confirm Booking",
+  "psychologist": "Psychologist",
+  "date": "Date",
+  "time": "Time",
+  "description": "Description (optional)",
+  "submit": "Book",
+  "success": "Booking submitted successfully!",
+  "error": "Error during booking.",
+  "selectDate": "Select appointment date",
+  "selectTime": "Available times",
+  "noSlots": "No available times for this day.",
+  "sessionDuration": "All sessions are 60 minutes.",
+  "bookOn": "Book for {{ date }} at {{ time }}"
+}

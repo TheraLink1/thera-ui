@@ -1,0 +1,54 @@
+.slot-picker-loading {
+  color: #666;
+  font-style: italic;
+}
+
+.slot-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.slot-picker-title,
+.slot-picker-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.slot-picker-calendar {
+  max-width: 320px;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 8px;
+}
+
+.time-btn {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: #e8f5f4;
+    border-color: #00bfa5;
+  }
+
+  &.selected {
+    background: #00bfa5;
+    border-color: #00bfa5;
+    color: #fff;
+  }
+}
+
+.slot-picker-hint {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0;
+}

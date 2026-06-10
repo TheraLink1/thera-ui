@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, startWith, switchMap } from 'rxjs';
+import { TranslocoService } from '@jsverse/transloco';
 import { AppointmentService } from '../../../core/services/appointment.service';
 import { PsychologistService } from '../../../core/services/psychologist.service';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -27,6 +28,7 @@ export class ConfirmBookingComponent {
   private route               = inject(ActivatedRoute);
   private router              = inject(Router);
   private snackBar            = inject(MatSnackBar);
+  private transloco           = inject(TranslocoService);
   private appointmentService  = inject(AppointmentService);
   private psychologistService = inject(PsychologistService);
   private auth                = inject(AuthService);
@@ -73,11 +75,11 @@ export class ConfirmBookingComponent {
       })
       .subscribe({
         next: () => {
-          this.snackBar.open('Wizyta została zarezerwowana!', 'OK', { duration: 4000 });
+          this.snackBar.open(this.transloco.translate('booking.success'), 'OK', { duration: 4000 });
           setTimeout(() => this.router.navigate(['/']), 2000);
         },
         error: () => {
-          this.snackBar.open('Wystąpił błąd podczas rezerwacji.', 'OK', { duration: 4000 });
+          this.snackBar.open(this.transloco.translate('booking.error'), 'OK', { duration: 4000 });
         },
       });
   }

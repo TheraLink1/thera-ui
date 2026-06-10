@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { provideTranslocoScope } from '@jsverse/transloco';
 import { authGuard } from '../../core/auth/guards/auth.guard';
 import { PsychologistDashboardComponent } from './psychologist-dashboard/psychologist-dashboard.component';
 import { PsychAccountSettingsComponent } from './account-settings/account-settings.component';
@@ -14,6 +15,7 @@ export const PSYCHOLOGIST_DASHBOARD_ROUTES: Routes = [
     component: PsychologistDashboardComponent,
     canActivate: [authGuard],
     data: { roles: ['psychologist'] },
+    providers: [provideTranslocoScope('psychologistDashboard')],
     children: [
       { path: 'account-settings', component: PsychAccountSettingsComponent },
       { path: 'set-availability', component: SetAvailabilityComponent },
