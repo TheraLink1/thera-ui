@@ -14,8 +14,8 @@
       <a routerLink="/dashboard/client" class="nav-btn">{{ 'nav.profile' | transloco }}</a>
       <button class="nav-btn" (click)="logout()">{{ 'nav.logout' | transloco }}</button>
     } @else {
-      <a routerLink="/signup" class="nav-btn">{{ 'nav.signUp' | transloco }}</a>
-      <a routerLink="/signin" class="nav-btn">{{ 'nav.signIn' | transloco }}</a>
+      <button class="nav-btn" (click)="register()">{{ 'nav.signUp' | transloco }}</button>
+      <button class="nav-btn" (click)="login()">{{ 'nav.signIn' | transloco }}</button>
     }
   </div>
 </nav>

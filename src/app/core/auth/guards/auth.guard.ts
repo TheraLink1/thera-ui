@@ -1,22 +1,19 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import Keycloak from 'keycloak-js';
 
-@Injectable({ providedIn: 'root' })
-export class AuthGuard extends KeycloakAuthGuard {
-  constructor(protected override router: Router, protected override keycloakAngular: KeycloakService) {
-    super(router, keycloakAngular);
+export const authGuard: CanActivateFn = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+  const keycloak = inject(Keycloak);
+  const router = inject(Router);
+
+  if (!keycloak.authenticated) {
+    await keycloak.login({ redirectUri: window.location.origin + state.url });
+    return false;
   }
 
-  async isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    if (!this.authenticated) {
-      await this.keycloakAngular.login({ redirectUri: window.location.origin + state.url });
-      return false;
-    }
+  const requiredRoles: string[] = route.data['roles'] ?? [];
+  if (requiredRoles.length === 0) return true;
 
-    const requiredRoles: string[] = route.data['roles'] ?? [];
-    if (requiredRoles.length === 0) return true;
-
-    return requiredRoles.every((role) => this.roles.includes(role));
-  }
-}
+  const roles = keycloak.realmAccess?.roles ?? [];
+  return requiredRoles.every((role) => roles.includes(role));
+};

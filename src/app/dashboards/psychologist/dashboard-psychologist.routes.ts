@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../../core/auth/guards/auth.guard';
+import { authGuard } from '../../core/auth/guards/auth.guard';
 import { PsychologistDashboardComponent } from './psychologist-dashboard/psychologist-dashboard.component';
 import { PsychAccountSettingsComponent } from './account-settings/account-settings.component';
 import { SetAvailabilityComponent } from './set-availability/set-availability.component';
@@ -12,7 +12,7 @@ export const PSYCHOLOGIST_DASHBOARD_ROUTES: Routes = [
   {
     path: '',
     component: PsychologistDashboardComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: { roles: ['psychologist'] },
     children: [
       { path: 'account-settings', component: PsychAccountSettingsComponent },

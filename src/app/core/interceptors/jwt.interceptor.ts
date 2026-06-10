@@ -1,13 +1,14 @@
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
 import { from, switchMap } from 'rxjs';
 
 export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
-  const keycloak = inject(KeycloakService);
+  const keycloak = inject(Keycloak);
 
-  return from(keycloak.getToken()).pipe(
-    switchMap((token) => {
+  return from(keycloak.updateToken(5).catch(() => false)).pipe(
+    switchMap(() => {
+      const token = keycloak.token;
       if (token) {
         const cloned = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
         return next(cloned);

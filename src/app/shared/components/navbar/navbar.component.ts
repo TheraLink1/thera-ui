@@ -14,6 +14,14 @@ import { TranslocoPipe } from '@jsverse/transloco';
 export class NavbarComponent {
   constructor(public auth: AuthService) {}
 
+  login() {
+    this.auth.login();
+  }
+
+  register() {
+    this.auth.register();
+  }
+
   logout() {
     this.auth.logout();
   }

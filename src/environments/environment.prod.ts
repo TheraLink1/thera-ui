@@ -4,6 +4,6 @@ export const environment = {
   keycloak: {
     url: 'https://auth.theralink.com',
     realm: 'theralink',
-    clientId: 'theralink-frontend',
+    clientId: 'theralink-angular',
   },
 };

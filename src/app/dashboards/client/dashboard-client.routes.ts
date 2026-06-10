@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../../core/auth/guards/auth.guard';
+import { authGuard } from '../../core/auth/guards/auth.guard';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { ClientAccountSettingsComponent } from './account-settings/account-settings.component';
 import { AppointmentHistoryComponent } from './appointment-history/appointment-history.component';
@@ -10,7 +10,7 @@ export const CLIENT_DASHBOARD_ROUTES: Routes = [
   {
     path: '',
     component: ClientDashboardComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: { roles: ['client'] },
     children: [
       { path: 'account-settings', component: ClientAccountSettingsComponent },
