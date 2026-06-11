@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  apiGatewayUrl: 'https://api.theralink.com',
+  apiGatewayUrl: 'https://api.theralink.pl',
   keycloak: {
-    url: 'https://auth.theralink.com',
+    url: 'https://auth.theralink.pl',
     realm: 'theralink',
     clientId: 'theralink-angular',
   },
