@@ -15,6 +15,12 @@ import { TranslocoPipe } from '@jsverse/transloco';
 export class NavbarComponent {
   protected auth = inject(AuthService);
 
+  get dashboardRoute(): string {
+    if (this.auth.hasRole('PSYCHOLOGIST')) return '/dashboard/psychologist';
+    if (this.auth.hasRole('CLIENT')) return '/dashboard/client';
+    return '/';
+  }
+
   login() {
     this.auth.login();
   }

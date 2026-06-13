@@ -14,7 +14,7 @@ export const PSYCHOLOGIST_DASHBOARD_ROUTES: Routes = [
     path: '',
     component: PsychologistDashboardComponent,
     canActivate: [authGuard],
-    data: { roles: ['psychologist'] },
+    data: { roles: ['PSYCHOLOGIST'] },
     providers: [provideTranslocoScope('psychologistDashboard')],
     children: [
       { path: 'account-settings', component: PsychAccountSettingsComponent },

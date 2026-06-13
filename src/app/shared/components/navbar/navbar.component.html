@@ -11,7 +11,7 @@
 
   <div class="nav-actions">
     @if (auth.isLoggedIn()) {
-      <a routerLink="/dashboard/client" class="nav-btn">{{ 'nav.profile' | transloco }}</a>
+      <a [routerLink]="dashboardRoute" class="nav-btn">{{ 'nav.profile' | transloco }}</a>
       <button class="nav-btn" (click)="logout()">{{ 'nav.logout' | transloco }}</button>
     } @else {
       <button class="nav-btn" (click)="register()">{{ 'nav.signUp' | transloco }}</button>

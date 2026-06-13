@@ -15,5 +15,7 @@ export const authGuard: CanActivateFn = async (route: ActivatedRouteSnapshot, st
   if (requiredRoles.length === 0) return true;
 
   const roles = keycloak.realmAccess?.roles ?? [];
-  return requiredRoles.every((role) => roles.includes(role));
+  if (requiredRoles.every((role) => roles.includes(role))) return true;
+
+  return router.createUrlTree(['/']);
 };

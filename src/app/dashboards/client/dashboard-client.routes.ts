@@ -12,7 +12,7 @@ export const CLIENT_DASHBOARD_ROUTES: Routes = [
     path: '',
     component: ClientDashboardComponent,
     canActivate: [authGuard],
-    data: { roles: ['client'] },
+    data: { roles: ['CLIENT'] },
     providers: [provideTranslocoScope('clientDashboard')],
     children: [
       { path: 'account-settings', component: ClientAccountSettingsComponent },
